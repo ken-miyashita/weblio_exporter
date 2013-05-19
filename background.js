@@ -15,23 +15,6 @@ function setEntries(request, sender, sendResponse) {
     sendResponse({});
 };
 
-// send back the word list to the sender.
-// called when the pop up is shown.
-function getEntries(request, sender, sendResponse) {
-    sendResponse({"entries": entries});
-};
+// Listen for the request from the content script.
+chrome.extension.onRequest.addListener(setEntries);
 
-// request dispatcher
-function onRequest(request, sender, sendResponse) {
-    var reqName = request["name"];
-    if(reqName == "setEntries"){
-        setEntries(request, sender, sendResponse);
-    }else if(reqName == "getEntries"){
-        getEntries(request, sender, sendResponse);
-    }else{
-        console.log("background.js : invalid request is received. ignore it.");
-    }
-}
-
-// Listen for requests.
-chrome.extension.onRequest.addListener(onRequest);

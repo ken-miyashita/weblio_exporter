@@ -27,4 +27,4 @@ rows.each(function(index, elm){
 });
 
 // send the extracted word list to the background page.
-chrome.extension.sendRequest({"name": "setEntries", "entries": entries}, function(response) {});
+chrome.extension.sendRequest({"entries": entries}, function(response) {});

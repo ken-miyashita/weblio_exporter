@@ -7,14 +7,6 @@
         min-width: 357px;
         overflow-x: hidden;
       }
-
-      img {
-        margin: 5px;
-        border: 2px solid black;
-        vertical-align: middle;
-        width: 75px;
-        height: 75px;
-      }
     </style>
 
     <!--
@@ -23,9 +15,12 @@
       -
       - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
      -->
+    <script src="jquery-2.0.0.min.js"></script>
     <script src="popup.js"></script>
   </head>
   <body>
+      <table>
+          <tbody id="wordtable"></tbody>
+      </table>
   </body>
 </html>
-
