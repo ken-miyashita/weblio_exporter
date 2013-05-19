@@ -1,14 +1,14 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+/////////////////////////////////////////////////////////
+// Chrome extension to export the word list in http://uwl.weblio.jp/word-list
+/////////////////////////////////////////////////////////
 
 // Called when a message is passed.  We assume that the content script
-// wants to show the page action.
+// wants to show the page action (icon).
 function onRequest(request, sender, sendResponse) {
     // Show the page action for the tab that the sender (content script)
     // was on.
     chrome.pageAction.show(sender.tab.id);
-    console.log("backkground is called.");
+    console.log("backkground page is called.");
 
     // Return nothing to let the connection be cleaned up.
     sendResponse({});

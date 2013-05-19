@@ -9,7 +9,8 @@
   {
     "default_icon" :  { "19":  "dictionary-19.png",
                         "38":  "dictionary-38.png"},
-    "default_title" : "Export the word list"
+    "default_title" : "Export the word list",
+    "default_popup": "popup.html"
   },
   "content_scripts" : [
     {

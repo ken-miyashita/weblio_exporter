@@ -1,6 +1,6 @@
-/*
- * Chrome extension to export the word list in http://uwl.weblio.jp/word-list
- */
+/////////////////////////////////////////////////////////
+// Chrome extension to export the word list in http://uwl.weblio.jp/word-list
+/////////////////////////////////////////////////////////
 
 
 // read all entries in the word list.
@@ -20,18 +20,12 @@ entries.each(function(index, elm){
     var sampleJap = $('span.tngMainTSRFL', $(elm)).text();
 
 
-    console.log(wordEng + " |" + pron + "|" + wordJap + "|" + sampleEng + "|" + sampleJap);
+    // console.log(wordEng + " |" + pron + "|" + wordJap + "|" + sampleEng + "|" + sampleJap);
    
 });
 
-
-var regex = /iya/;
-
-// Test the text of the body element against our regular expression.
-if (regex.test(document.body.innerText)) {
-  // The regular expression produced a match, so notify the background page.
-  chrome.extension.sendRequest({}, function(response) {});
-
-} else {
-  // No match was found.
-}
+// ask the background page to show the icon in the omnibox.
+chrome.extension.sendRequest({}, function(response) {
+    // the background page sends back a response.
+    console.log("content script received a response.")
+});
