@@ -58,6 +58,13 @@ var kittenGenerator = {
       img.setAttribute('alt', kittens[i].getAttribute('title'));
       document.body.appendChild(img);
     }
+    
+    // debug
+    chrome.extension.sendRequest({"name": "getEntries"}, function(response) {
+        var entries = response["entries"];
+        
+        debugger;
+    });
   },
 
   /**

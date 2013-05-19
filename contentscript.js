@@ -2,10 +2,12 @@
 // Chrome extension to export the word list in http://uwl.weblio.jp/word-list
 /////////////////////////////////////////////////////////
 
+// entries in the word list.
+var entries = [];
 
 // read all entries in the word list.
-var entries = $('table.tngMainT tr');
-entries.each(function(index, elm){
+var rows = $('table.tngMainT tr');
+rows.each(function(index, elm){
     // ignore the first row since it contains titles of columns.
     // note "return" means "continue" in the function called by each().
     if(index == 0){
@@ -19,13 +21,10 @@ entries.each(function(index, elm){
     var sampleEng = $('p.tngMainTSRH', $(elm)).text();
     var sampleJap = $('span.tngMainTSRFL', $(elm)).text();
 
-
-    // console.log(wordEng + " |" + pron + "|" + wordJap + "|" + sampleEng + "|" + sampleJap);
-   
+    // push the data into the array.
+    entries.push({"wordEng": wordEng, "pron": pron, "wordJap": wordJap,
+                  "sampleEng": sampleEng, "sampleJap": sampleJap});    
 });
 
-// ask the background page to show the icon in the omnibox.
-chrome.extension.sendRequest({}, function(response) {
-    // the background page sends back a response.
-    console.log("content script received a response.")
-});
+// send the extracted word list to the background page.
+chrome.extension.sendRequest({"name": "setEntries", "entries": entries}, function(response) {});
