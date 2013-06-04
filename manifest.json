@@ -2,8 +2,15 @@
   "name" : "Weblio Exporter",
   "version" : "1.0",
   "description" : "Export the word list stored in Weblio",
+  "permissions": [
+    "http://localhost/*",
+    "https://localhost/*",
+    "https://www.dropbox.com/1/oauth/authorize*",
+    "contentSettings",
+    "storage"
+  ],
   "background" : {
-    "scripts": ["background.js"]
+    "scripts": ["dropbox.min.js", "background.js"]
   },
   "page_action" :
   {
