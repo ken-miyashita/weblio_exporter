@@ -21,23 +21,22 @@ function setEntries(request, sender, sendResponse) {
     sendResponse({});
 };
 
+// connect the Dropbox service.
+// supposed to be called by popup.js in response to the user's button press.
+//
+// @param callback     function(error, client) to be called to notify the result of authentication.
+function connectDropbox(callback){
+    // connect to DropBox with authentication.
+    dbxClient = new Dropbox.Client({
+        key: "lK+DODUJKIA=|z3nAFSjnMnQuuja76O6l+NxtRwZHCpYJsTRdLYn3oQ==", sandbox: true
+    });
+    
+    dbxClient.authDriver(new Dropbox.Drivers.Chrome({
+        receiverPath: "chrome_oauth_receiver.html"}));
+    
+    dbxClient.authenticate(callback);
+}
+
 
 // Listen for the request from the content script.
 chrome.extension.onRequest.addListener(setEntries);
-
-// connect to DropBox with authentication.
-dbxClient = new Dropbox.Client({
-    key: "lK+DODUJKIA=|z3nAFSjnMnQuuja76O6l+NxtRwZHCpYJsTRdLYn3oQ==", sandbox: true
-});
-
-dbxClient.authDriver(new Dropbox.Drivers.Chrome({
-    receiverPath: "chrome_oauth_receiver.html"}));
-
-dbxClient.authenticate(function(error, client) {
-    if (error) {
-        dbxClient = undefined;
-        return showDropboxError(error);
-    }   
-});
-
-
