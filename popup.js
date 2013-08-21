@@ -23,7 +23,7 @@ function initPopUp(){
         $(wordTable).append(row);
     }
 
-    // test
+    // connect to Dropbox.com.
     bgPage.connectDropbox(function(error, client) {
         if (error) {
             return showDropboxError(error);
@@ -39,10 +39,37 @@ function initPopUp(){
 
                 // show the username on the popup window.                
                 $('#username').text(userInfo.name);
+                
+                // test
+                // upload the word list.
+                uploadEntries();
             });
         }
           
     });
 }
+
+// upload the entries (word list).
+// see https://github.com/dropbox/dropbox-js/blob/stable/guides/getting_started.md#write-a-file
+function uploadEntries(){
+    // create a file content as a string.
+    var cont = "";
+    var entries = bgPage.entries;
+    var i;
+    for(i = 0; i < entries.length; i++){
+        var entry = entries[i];
+        cont += entry["wordEng"] + " / " + entry["sampleEng"] + "\t" 
+                + entry["wordJap"] + " / " + entry["sampleJap"] + "\n";
+    }   
+
+    bgPage.dbxClient.writeFile("weblio2013.tsv", cont, function(error, stat) {
+        if (error) {
+            return showDropboxError(error);   // Something went wrong.
+        }
+    }); 
+}
+
+
+
 
 document.addEventListener('DOMContentLoaded', initPopUp);
