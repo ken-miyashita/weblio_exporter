@@ -56,20 +56,29 @@ function uploadEntries(){
     var cont = "";
     var entries = bgPage.entries;
     var i;
+    
     for(i = 0; i < entries.length; i++){
         var entry = entries[i];
         cont += entry["wordEng"] + " / " + entry["sampleEng"] + "\t" 
                 + entry["wordJap"] + " / " + entry["sampleJap"] + "\n";
     }   
 
+    // \u00a0 is a "non-break space". replace it with a normal space.
+    cont = cont.replace(/\u00a0/g, " ");    
+
+    /* debug
+    for(i = 0; i < cont.length; i++){
+        var ch = cont.charAt(i);
+        var code = cont.charCodeAt(i);
+        console.log(ch + " " + code.toString());
+    }
+    */
+    
     bgPage.dbxClient.writeFile("weblio2013.tsv", cont, function(error, stat) {
         if (error) {
             return showDropboxError(error);   // Something went wrong.
         }
     }); 
 }
-
-
-
 
 document.addEventListener('DOMContentLoaded', initPopUp);
